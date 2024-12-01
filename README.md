@@ -18,4 +18,3 @@ The `.env` file should contain the following:
 ```plaintext
 OPENAI_API_KEY=<your_openai_api_key>
 ```
-"# Routing-with-LLMs" 

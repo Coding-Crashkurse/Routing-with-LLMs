@@ -1,0 +1,80 @@
+openapi: 3.1.0
+info:
+  title: Users and Documents API
+  version: "1.0.0"
+servers:
+  - url: http://127.0.0.1:8001
+    description: Local Users and Documents API Server
+paths:
+  /users:
+    get:
+      summary: Get All Users
+      description: Returns a list of all users with their usernames and full names.
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                      example: john_doe
+                    full_name:
+                      type: string
+                      example: John Doe
+  /users/{full_name}/documents:
+    get:
+      summary: Get Documents for a User by Full Name
+      description: Returns a list of documents for the specified user by their full name.
+      parameters:
+        - name: full_name
+          in: path
+          required: true
+          description: The full name of the user to fetch documents for.
+          schema:
+            type: string
+            example: John Doe
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    page_content:
+                      type: string
+                      example: John's first document.
+        "404":
+          description: User not found or no documents available.
+  /users/{username}/last_name:
+    get:
+      summary: Get Last Name of a User by Username
+      description: Returns the last name of the specified user by their username.
+      parameters:
+        - name: username
+          in: path
+          required: true
+          description: The username to fetch the last name for.
+          schema:
+            type: string
+            example: john_doe
+      responses:
+        "200":
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  last_name:
+                    type: string
+                    example: Doe
+        "404":
+          description: User not found.
